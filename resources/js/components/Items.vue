@@ -10,19 +10,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form @submit.prevent="createItem">
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input type="text" class="form-control">
+                            <input v-model="form.name" name="name" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }"><has-error :form="form" field="name"></has-error>
                         </div>
                         <div class="form-group">
                             <label for="">Description</label>
-                            <textarea class="form-control" name="" id="" cols="30" rows="7"></textarea>
+                            <textarea v-model="form.description" class="form-control" name="description" cols="30" rows="7" :class="{'is-invalid':form.errors.has('description')}"></textarea><has-error :form="form" field="description"></has-error>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
                     </form>    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
                 </div>
             </div>
@@ -53,6 +53,15 @@
                 form: new Form({
                     name : '',
                     description : ''
+                })
+            }
+        },
+        methods: {
+            createItem(){
+                this.form.post('api/createItem').then((res) => {
+                    console.log(res.data)
+                }).catch((err) => {
+                    console.log(err)
                 })
             }
         },
