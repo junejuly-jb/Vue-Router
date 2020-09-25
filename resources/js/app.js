@@ -3,12 +3,20 @@
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
+import { Form, HasError, AlertError } from 'vform' 
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
+window.Form = Form
+
 
 Vue.use(VueRouter)
 
 
 let routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default},
+    { path: '/items', component: require('./components/Items.vue').default},
     { path: '/profile', component: require('./components/Profile.vue').default}
 ]
   
