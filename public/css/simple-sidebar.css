@@ -4,7 +4,7 @@
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
  */
 
- #wrapper {
+ .wrapper {
     overflow-x: hidden;
  }
 
@@ -15,6 +15,7 @@
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
+  background-color: #1e6262;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -24,15 +25,42 @@
 
 #sidebar-wrapper .list-group {
   width: 15rem;
+  
+}
+
+#sidebar-wrapper .list-group-item{
+  background-color: #1e6262;
+  color: white;
 }
 
 #page-content-wrapper {
   min-width: 100vw;
 }
 
-#wrapper.toggled #sidebar-wrapper {
+.wrapper.toggled #sidebar-wrapper {
   margin-left: 0;
 }
+#menu-toggle{
+  cursor: pointer;
+  margin-left: 15px;
+  margin-top: 20px;
+  background-color:#1e6262;
+  padding: 6px 9px 4px 9px;
+  border-radius: 100px;
+}
+
+.router-link-exact-active{
+  /* background-color: red !important; */
+  color:#b4f1f1 !important;
+
+}
+.brand{
+  font-size: 32px;
+  font-family: poppins;
+  font-weight: bold;
+  color:#b4f1f1;
+}
+
 
 @media (min-width: 768px) {
   #sidebar-wrapper {
@@ -44,7 +72,7 @@
     width: 100%;
   }
 
-  #wrapper.toggled #sidebar-wrapper {
+  .wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
 }
