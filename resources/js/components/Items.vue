@@ -40,7 +40,9 @@
                 </tr>
             </thead>
         <tbody>
-        
+            <tr v-for="item in items" :key="item.id">
+                <td>{{item.name}}</td>
+            </tr>
         </tbody>
         </table>
     </div>
@@ -50,6 +52,7 @@
     export default {
         data(){
             return{
+                items: '',
                 form: new Form({
                     name : '',
                     description : ''
@@ -63,9 +66,17 @@
                 }).catch((err) => {
                     console.log(err)
                 })
+            },
+            getAllItems(){
+                axios.get('api/allItems').then((res) =>{
+                    this.items = res.data.data
+                    console.log(this.items)
+                })
             }
         },
         mounted() {
+
+            this.getAllItems()
             // console.log('Component mounted.')
         }
     }
