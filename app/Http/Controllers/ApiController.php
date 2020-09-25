@@ -28,4 +28,12 @@ class ApiController extends Controller
         ]); 
 
     }
+
+    public function getAllItems(){
+        $item = Item::all();
+
+        return response()->json([
+            'data' => $item
+        ]);
+    }
 }
