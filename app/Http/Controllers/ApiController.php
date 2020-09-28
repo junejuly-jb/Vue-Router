@@ -49,6 +49,11 @@ class ApiController extends Controller
     public function updateItem(Request $request, $id){
         $item = Item::find($id);
 
+        $this->validate($request, [
+            'name' => 'required|string|min:4',
+            'description' => 'required|string|min:10'
+        ]);
+
         $item->name = $request->name;
         $item->description = $request->description;
         $item->save();

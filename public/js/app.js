@@ -2062,18 +2062,37 @@ __webpack_require__.r(__webpack_exports__);
     return {
       items: '',
       form: new Form({
+        id: '',
         name: '',
         description: ''
       })
     };
   },
   methods: {
+    updateItem: function updateItem() {
+      var _this = this;
+
+      this.form.put('api/updateItem/' + this.form.id).then(function (res) {
+        $('#editModal').modal('hide');
+        toast.fire({
+          icon: 'success',
+          title: res.data.message
+        });
+
+        _this.getAllItems();
+      })["catch"](function (err) {
+        toast.fire({
+          icon: 'warning',
+          title: err
+        });
+      });
+    },
     addItem: function addItem() {
       $('#addModal').modal('show');
       this.form.reset();
     },
     createItem: function createItem() {
-      var _this = this;
+      var _this2 = this;
 
       this.form.post('api/createItem').then(function (res) {
         $('#addModal').modal('hide');
@@ -2082,20 +2101,20 @@ __webpack_require__.r(__webpack_exports__);
           title: res.data.message
         });
 
-        _this.getAllItems();
+        _this2.getAllItems();
 
-        _this.form.reset();
+        _this2.form.reset();
       });
     },
     getAllItems: function getAllItems() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get('api/allItems').then(function (res) {
-        _this2.items = res.data.data;
+        _this3.items = res.data.data;
       });
     },
     deleteItem: function deleteItem(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log(id);
       swal.fire({
@@ -2108,14 +2127,14 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this3.form["delete"]('api/deleteItem/' + id);
+          _this4.form["delete"]('api/deleteItem/' + id);
 
           toast.fire({
             icon: 'success',
             title: 'Item remove successfully'
           });
 
-          _this3.getAllItems();
+          _this4.getAllItems();
         } else {
           swal.close();
         }
