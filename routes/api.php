@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/createItem', 'App\Http\Controllers\ApiController@createItem');
 Route::get('/allItems', 'App\Http\Controllers\ApiController@getAllItems');
+Route::delete('/deleteItem/{id}', 'App\Http\Controllers\ApiController@deleteItem');
+
