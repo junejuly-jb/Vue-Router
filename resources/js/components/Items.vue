@@ -1,10 +1,41 @@
 <template>
     <div class="container">
+
+        <!-- edit modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="updateItem">
+                        <div class="form-group">
+                            <label for="">Name</label>
+                            <input v-model="form.name" name="name" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }"><has-error :form="form" field="name"></has-error>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Description</label>
+                            <textarea v-model="form.description" class="form-control" name="description" cols="30" rows="7" :class="{'is-invalid':form.errors.has('description')}"></textarea><has-error :form="form" field="description"></has-error>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>    
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- add modal -->
         <div class="modal fade" tabindex="-1" role="dialog" id="addModal">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Add Item</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -28,7 +59,7 @@
             </div>
         </div>
         <div class="py-3">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Item</button>
+            <button class="btn btn-primary" v-on:click="addItem">Add Item</button>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -44,7 +75,7 @@
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
-                <td><button class="btn">Edit</button>&nbsp;<button class="btn" v-on:click="deleteItem(item)">Delete</button></td>
+                <td><button class="btn" v-on:click="editItem(item)">Edit</button>&nbsp;<button class="btn" v-on:click="deleteItem(item.id)">Delete</button></td>
             </tr>
         </tbody>
         </table>
@@ -63,6 +94,10 @@
             }
         },
         methods: {
+            addItem(){
+                $('#addModal').modal('show')
+                this.form.reset()
+            },
             createItem(){
                 this.form.post('api/createItem').then((res) => {
                     $('#addModal').modal('hide')
@@ -78,19 +113,36 @@
             getAllItems(){
                 axios.get('api/allItems').then((res) =>{
                     this.items = res.data.data
-                    console.log(this.items)
                 })
             },
-            deleteItem(item){
-                axios.delete('api/deleteItem/' + item.id).then((res) => {
-                    toast.fire({
-                        icon: 'success',
-                        title: res.data.message
-                    })
-                    this.getAllItems()
-                }).catch((err) => {
-                    console.log(err)
-                })
+            deleteItem(id){
+                console.log(id)
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.form.delete('api/deleteItem/' + id)
+                        toast.fire({
+                            icon: 'success',
+                            title: 'Item remove successfully'
+                        })
+                        this.getAllItems()
+                    }
+                    else{
+                        swal.close()
+                    }
+                })   
+            },
+            editItem(item){
+                this.form.reset()
+                $('#editModal').modal('show')
+                this.form.fill(item)
             }
         },
         mounted() {

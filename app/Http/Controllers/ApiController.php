@@ -45,4 +45,18 @@ class ApiController extends Controller
             'message' => 'Item deleted successfully'
         ]);
     }
+
+    public function updateItem(Request $request, $id){
+        $item = Item::find($id);
+
+        $item->name = $request->name;
+        $item->description = $request->description;
+        $item->save();
+
+        return response()->json([
+            'message' => 'Item updated successfully!',
+            'data' => $item 
+        ]);
+
+    }
 }
