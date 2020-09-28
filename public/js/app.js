@@ -2026,6 +2026,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2037,6 +2068,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    addItem: function addItem() {
+      $('#addModal').modal('show');
+      this.form.reset();
+    },
     createItem: function createItem() {
       var _this = this;
 
@@ -2057,22 +2092,39 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('api/allItems').then(function (res) {
         _this2.items = res.data.data;
-        console.log(_this2.items);
       });
     },
-    deleteItem: function deleteItem(item) {
+    deleteItem: function deleteItem(id) {
       var _this3 = this;
 
-      axios["delete"]('api/deleteItem/' + item.id).then(function (res) {
-        toast.fire({
-          icon: 'success',
-          title: res.data.message
-        });
+      console.log(id);
+      swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this3.form["delete"]('api/deleteItem/' + id);
 
-        _this3.getAllItems();
-      })["catch"](function (err) {
-        console.log(err);
+          toast.fire({
+            icon: 'success',
+            title: 'Item remove successfully'
+          });
+
+          _this3.getAllItems();
+        } else {
+          swal.close();
+        }
       });
+    },
+    editItem: function editItem(item) {
+      this.form.reset();
+      $('#editModal').modal('show');
+      this.form.fill(item);
     }
   },
   mounted: function mounted() {
@@ -7060,7 +7112,7 @@ var render = function() {
       "div",
       {
         staticClass: "modal fade",
-        attrs: { tabindex: "-1", role: "dialog", id: "addModal" }
+        attrs: { tabindex: "-1", role: "dialog", id: "editModal" }
       },
       [
         _c(
@@ -7080,7 +7132,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        return _vm.createItem($event)
+                        return _vm.updateItem($event)
                       }
                     }
                   },
@@ -7173,10 +7225,133 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(2),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: { tabindex: "-1", role: "dialog", id: "addModal" }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.createItem($event)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.name,
+                              expression: "form.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("name") },
+                          attrs: { name: "name", type: "text" },
+                          domProps: { value: _vm.form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "name", $event.target.value)
+                            }
+                          }
+                        }),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "name" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Description")
+                        ]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.description,
+                              expression: "form.description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("description")
+                          },
+                          attrs: { name: "description", cols: "30", rows: "7" },
+                          domProps: { value: _vm.form.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "description",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "description" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm._m(3)
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "py-3" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", on: { click: _vm.addItem } },
+        [_vm._v("Add Item")]
+      )
+    ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-bordered" }, [
-      _vm._m(3),
+      _vm._m(4),
       _vm._v(" "),
       _c(
         "tbody",
@@ -7189,7 +7364,18 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(item.description))]),
             _vm._v(" "),
             _c("td", [
-              _c("button", { staticClass: "btn" }, [_vm._v("Edit")]),
+              _c(
+                "button",
+                {
+                  staticClass: "btn",
+                  on: {
+                    click: function($event) {
+                      return _vm.editItem(item)
+                    }
+                  }
+                },
+                [_vm._v("Edit")]
+              ),
               _vm._v(" "),
               _c(
                 "button",
@@ -7197,7 +7383,7 @@ var render = function() {
                   staticClass: "btn",
                   on: {
                     click: function($event) {
-                      return _vm.deleteItem(item)
+                      return _vm.deleteItem(item.id)
                     }
                   }
                 },
@@ -7217,7 +7403,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title" }, [_vm._v("Modal title")]),
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Edit Modal")]),
       _vm._v(" "),
       _c(
         "button",
@@ -7249,14 +7435,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "py-3" }, [
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add Item")]),
+      _vm._v(" "),
       _c(
         "button",
         {
-          staticClass: "btn btn-primary",
-          attrs: { "data-toggle": "modal", "data-target": "#addModal" }
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
         },
-        [_vm._v("Add Item")]
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Save changes")]
       )
     ])
   },
