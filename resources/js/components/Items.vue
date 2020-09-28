@@ -34,14 +34,17 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
         <tbody>
             <tr v-for="item in items" :key="item.id">
+                <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td><button class="btn">Edit</button>&nbsp;<button class="btn">Delete</button></td>
             </tr>
         </tbody>
         </table>
@@ -62,10 +65,14 @@
         methods: {
             createItem(){
                 this.form.post('api/createItem').then((res) => {
-                    console.log(res.data)
-                }).catch((err) => {
-                    console.log(err)
+                    $('#addModal').modal('hide')
+                    toast.fire({
+                        icon: 'success',
+                        title: res.data.message
+                    })
+                    this.getAllItems()
                 })
+                
             },
             getAllItems(){
                 axios.get('api/allItems').then((res) =>{
@@ -75,7 +82,6 @@
             }
         },
         mounted() {
-
             this.getAllItems()
             // console.log('Component mounted.')
         }
