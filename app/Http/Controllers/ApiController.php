@@ -36,4 +36,13 @@ class ApiController extends Controller
             'data' => $item
         ]);
     }
+
+    public function deleteItem($id){
+        $item = Item::find($id);
+        $item->delete();
+
+        return response()->json([
+            'message' => 'Item deleted successfully'
+        ]);
+    }
 }

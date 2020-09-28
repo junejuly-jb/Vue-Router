@@ -2048,6 +2048,8 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this.getAllItems();
+
+        _this.form.reset();
       });
     },
     getAllItems: function getAllItems() {
@@ -2056,6 +2058,20 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('api/allItems').then(function (res) {
         _this2.items = res.data.data;
         console.log(_this2.items);
+      });
+    },
+    deleteItem: function deleteItem(item) {
+      var _this3 = this;
+
+      axios["delete"]('api/deleteItem/' + item.id).then(function (res) {
+        toast.fire({
+          icon: 'success',
+          title: res.data.message
+        });
+
+        _this3.getAllItems();
+      })["catch"](function (err) {
+        console.log(err);
       });
     }
   },
@@ -7172,7 +7188,22 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(item.description))]),
             _vm._v(" "),
-            _vm._m(4, true)
+            _c("td", [
+              _c("button", { staticClass: "btn" }, [_vm._v("Edit")]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteItem(item)
+                    }
+                  }
+                },
+                [_vm._v("Delete")]
+              )
+            ])
           ])
         }),
         0
@@ -7243,16 +7274,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn" }, [_vm._v("Edit")]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn" }, [_vm._v("Delete")])
     ])
   }
 ]

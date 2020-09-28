@@ -44,7 +44,7 @@
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
-                <td><button class="btn">Edit</button>&nbsp;<button class="btn">Delete</button></td>
+                <td><button class="btn">Edit</button>&nbsp;<button class="btn" v-on:click="deleteItem(item)">Delete</button></td>
             </tr>
         </tbody>
         </table>
@@ -71,6 +71,7 @@
                         title: res.data.message
                     })
                     this.getAllItems()
+                    this.form.reset()
                 })
                 
             },
@@ -78,6 +79,17 @@
                 axios.get('api/allItems').then((res) =>{
                     this.items = res.data.data
                     console.log(this.items)
+                })
+            },
+            deleteItem(item){
+                axios.delete('api/deleteItem/' + item.id).then((res) => {
+                    toast.fire({
+                        icon: 'success',
+                        title: res.data.message
+                    })
+                    this.getAllItems()
+                }).catch((err) => {
+                    console.log(err)
                 })
             }
         },
