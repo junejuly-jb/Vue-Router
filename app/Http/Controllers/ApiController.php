@@ -23,7 +23,7 @@ class ApiController extends Controller
 
         $item->save();
         return response()->json([
-            'message' => 'added successfully',
+            'message' => 'Item added successfully',
             'data' => $item
         ]); 
 
