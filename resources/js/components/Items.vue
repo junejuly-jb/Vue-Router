@@ -88,12 +88,29 @@
             return{
                 items: '',
                 form: new Form({
+                    id: '',
                     name : '',
                     description : ''
                 })
             }
         },
         methods: {
+            updateItem(){
+                this.form.put('api/updateItem/' + this.form.id)
+                .then((res) => {
+                    $('#editModal').modal('hide')
+                    toast.fire({
+                        icon: 'success',
+                        title: res.data.message
+                    })
+                    this.getAllItems()
+                }).catch((err) => {
+                    toast.fire({
+                        icon: 'warning',
+                        title: err
+                    })
+                })
+            },
             addItem(){
                 $('#addModal').modal('show')
                 this.form.reset()
