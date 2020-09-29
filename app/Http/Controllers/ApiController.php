@@ -11,6 +11,19 @@ class ApiController extends Controller
     public function __construct(){
         $this->middleware('auth:api');
     }
+    public function updateUser(Request $request){
+        $user = auth('api')->user();
+
+        $user->address = $request->address;
+        $user->contact = $request->contact;
+        $user->bio = $request->bio;
+        $user->save();
+
+        return response()->json([
+            'message' => 'User updated successfully!'
+        ]);
+
+    }
     public function profile(){
         $user = auth('api')->user();
 

@@ -57,7 +57,7 @@
                                     <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
                                     </svg>
                                 </td>
-                               <td class="text-secondary">Cebu City</td>
+                               <td class="text-secondary">{{details.address}}</td>
                            </tr>
                            <tr>
                                <td>
@@ -71,7 +71,7 @@
                            </tr>
                        </table>
                        <div class="pt-5 text-center">
-                           <pre>" Stay foolish. Stay hungry "</pre>
+                           <pre>" {{details.bio }} "</pre>
                        </div>
                     </div>
                 </div>
@@ -81,22 +81,26 @@
                     <div class="account_header">Edit Information</div>
                     <hr>
                     <div class="container">
-                        <form action="">
+                        <form @submit.prevent="updateUser">
                             <div class="form-group">
                                 <label for="">Name</label>
-                                <input v-model="form.name" type="text" class="form-control">
+                                <input v-model="form.name" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                                <has-error :form="form" field="name"></has-error>
                             </div>
                             <div class="form-group">
                                 <label for="">Address</label>
-                                <input type="text" class="form-control">
+                                <input v-model="form.address" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('address') }">
+                                <has-error :form="form" field="address"></has-error>
                             </div>
                             <div class="form-group">
                                 <label for="">Contact No.</label>
-                                <input type="text" class="form-control">
+                                <input v-model="form.contact" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('contact') }">
+                                <has-error :form="form" field="contact"></has-error>
                             </div>
                             <div class="form-group">
                                 <label for="">Bio</label>
-                                <textarea class="form-control" name="" id="" cols="30" rows="5"></textarea>
+                                <textarea v-model="form.bio" class="form-control" name="" id="" cols="30" rows="5" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
+                                <has-error :form="form" field="bio"></has-error>
                             </div>
                             <div class="modal-footer">
                                 <button class="btnSubmit" type="submit">Update</button>
@@ -132,6 +136,18 @@
                 axios.get('api/profile').then((res) => {
                     let creds = res.data.data
                     this.form.fill(creds)
+                })
+            },
+            updateUser(){
+                console.log(this.form)
+                this.form.put('api/updateUser').then((res) => {
+                    toast.fire({
+                        icon: 'success',
+                        title: res.data.message
+                    })
+                    this.getMyInfo()
+                }).catch((err) => {
+                    console.log(err)
                 })
             }
         },
