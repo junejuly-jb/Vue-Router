@@ -14,6 +14,13 @@ class ApiController extends Controller
     public function updateUser(Request $request){
         $user = auth('api')->user();
 
+        $this->validate($request, [
+            'name' => 'required',
+            'address' => 'required',
+            'contact' => 'required',
+            'bio' => 'required'
+        ]);
+
         $user->address = $request->address;
         $user->contact = $request->contact;
         $user->bio = $request->bio;
