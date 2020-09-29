@@ -55,8 +55,8 @@
   transition: 0.5s;
 }
 
-#menu-toggle svg:hover{
-  fill: #1e6262;
+.burger:hover{
+  stroke: #1e6262 !important;
 }
 
 .router-link-exact-active{
