@@ -41,7 +41,7 @@
                     <div class="text-center rounded-circle">
                         <img src="" alt="ProfilePic">
                     </div>
-                    <div class="text-center pt-3 acct_name">June Brianne A. Aragoncillo</div>
+                    <div class="text-center pt-3 acct_name">{{details.name}}</div>
                     <div class="text-center pb-2">
                         <small>Programmer</small>
                     </div>
@@ -67,7 +67,7 @@
                                         <polyline points="3 7 12 13 21 7" />
                                     </svg>
                                 </td>
-                               <td class="text-secondary">junearagoncillo@gmail.com</td>
+                               <td class="text-secondary">{{details.email}}</td>
                            </tr>
                        </table>
                        <div class="pt-5 text-center">
@@ -84,7 +84,7 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="">Name</label>
-                                <input type="text" class="form-control">
+                                <input v-model="form.name" type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Address</label>
@@ -113,14 +113,31 @@
     export default {
         data(){
             return{
-                
+                details: '',
+                form: new Form({
+                    name: '',
+                    address: '',
+                    contact: '',
+                    bio: ''
+                })
             }
         },
         methods: {
-            
+            getMyInfo(){
+                axios.get('api/profile').then((res) => {
+                    this.details = res.data.data
+                })
+            },
+            fillForm(){
+                axios.get('api/profile').then((res) => {
+                    let creds = res.data.data
+                    this.form.fill(creds)
+                })
+            }
         },
         mounted() {
-
+            this.getMyInfo()
+            this.fillForm()
         }
     }
 </script>

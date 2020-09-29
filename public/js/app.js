@@ -2276,10 +2276,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      details: '',
+      form: new Form({
+        name: '',
+        address: '',
+        contact: '',
+        bio: ''
+      })
+    };
   },
-  methods: {},
-  mounted: function mounted() {}
+  methods: {
+    getMyInfo: function getMyInfo() {
+      var _this = this;
+
+      axios.get('api/profile').then(function (res) {
+        _this.details = res.data.data;
+      });
+    },
+    fillForm: function fillForm() {
+      var _this2 = this;
+
+      axios.get('api/profile').then(function (res) {
+        var creds = res.data.data;
+
+        _this2.form.fill(creds);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getMyInfo();
+    this.fillForm();
+  }
 });
 
 /***/ }),
@@ -8282,7 +8310,7 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "text-center pt-3 acct_name" }, [
-            _vm._v("June Brianne A. Aragoncillo")
+            _vm._v(_vm._s(_vm.details.name))
           ]),
           _vm._v(" "),
           _vm._m(1),
@@ -8382,7 +8410,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-secondary" }, [
-                  _vm._v("junearagoncillo@gmail.com")
+                  _vm._v(_vm._s(_vm.details.email))
                 ])
               ])
             ]),
@@ -8392,7 +8420,53 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(3)
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "card_profile container" }, [
+          _c("div", { staticClass: "account_header" }, [
+            _vm._v("Edit Information")
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "container" }, [
+            _c("form", { attrs: { action: "" } }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _vm._m(4),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
+              _vm._m(6)
+            ])
+          ])
+        ])
+      ])
     ])
   ])
 }
@@ -8425,61 +8499,42 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card_profile container" }, [
-        _c("div", { staticClass: "account_header" }, [
-          _vm._v("Edit Information")
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "container" }, [
-          _c("form", { attrs: { action: "" } }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Address")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Contact No.")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Bio")]),
-              _vm._v(" "),
-              _c("textarea", {
-                staticClass: "form-control",
-                attrs: { name: "", id: "", cols: "30", rows: "5" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                { staticClass: "btnSubmit", attrs: { type: "submit" } },
-                [_vm._v("Update")]
-              )
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Address")]),
+      _vm._v(" "),
+      _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Contact No.")]),
+      _vm._v(" "),
+      _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Bio")]),
+      _vm._v(" "),
+      _c("textarea", {
+        staticClass: "form-control",
+        attrs: { name: "", id: "", cols: "30", rows: "5" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c("button", { staticClass: "btnSubmit", attrs: { type: "submit" } }, [
+        _vm._v("Update")
       ])
     ])
   }

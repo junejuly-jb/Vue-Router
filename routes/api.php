@@ -23,5 +23,6 @@ Route::post('/createItem', 'App\Http\Controllers\ApiController@createItem');
 Route::get('/allItems', 'App\Http\Controllers\ApiController@getAllItems');
 Route::delete('/deleteItem/{id}', 'App\Http\Controllers\ApiController@deleteItem');
 Route::put('/updateItem/{id}', 'App\Http\Controllers\ApiController@updateItem');
+Route::get('/profile', 'App\Http\Controllers\ApiController@profile');
 
 
