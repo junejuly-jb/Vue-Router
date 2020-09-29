@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-
+        <span id="sample"></span>
         <!-- edit modal -->
         <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -104,6 +104,7 @@
                         title: res.data.message
                     })
                     this.getAllItems()
+                    // $('#sample').text(form.id)
                 }).catch((err) => {
                     toast.fire({
                         icon: 'warning',

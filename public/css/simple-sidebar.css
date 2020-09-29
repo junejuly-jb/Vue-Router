@@ -47,6 +47,16 @@
   background-color:#1e6262;
   padding: 6px 8px 4px 8px;
   border-radius: 100px;
+  transition: 0.5s;
+}
+
+#menu-toggle:hover{
+  background-color: #b4f1f1;
+  transition: 0.5s;
+}
+
+#menu-toggle svg:hover{
+  fill: #1e6262;
 }
 
 .router-link-exact-active{
