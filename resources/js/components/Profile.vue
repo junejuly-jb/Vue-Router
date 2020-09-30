@@ -43,6 +43,34 @@
         margin: 0 auto;
         display: block;
     }
+    .edit-toggler{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        background: #1e6262;
+        width: 20%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 3px 0px;
+        transition: 0.5s;
+    }
+    .edit-toggler:hover{
+        background: #b4f1f1;
+        color: #1e6262;
+        transition: 0.5s;
+    }
+    .edit-toggler:hover > svg{
+        stroke:#1e6262;
+        transition: 0.5s;
+    }
+    .edit-toggler > svg{
+        transition: 0.5s;
+    }
 </style>
 <template>
     <div class="container text-pop">
@@ -80,6 +108,17 @@
                     <hr>
                     <div class="text-center" v-if="details.profile != null">
                         <img :src="'./uploads/'+ details.profile" alt="ProfilePic" class="rounded-circle" width="140">
+                        
+                    </div>
+                    <div>
+                        <div v-on:click="modalPop" v-if="details.profile != null" class="text-center edit-toggler">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFFFFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                                <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+                            </svg>
+                            <small>Photo</small>
+                        </div>
                     </div>
                     <div class="no-pp text-center m-auto" v-on:click="modalPop" v-if="details.profile == null">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="92" height="92" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9E9E9E" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -217,7 +256,6 @@
                         text: 'Something went wrong!',
                         footer: '<a href>Why do I have this issue?</a>'
                     })
-                    this.form_profile.profile = ' '
                 }
             },
             updateUser(){
@@ -238,7 +276,16 @@
             updatePP(){
                 // console.log(this.form_profile.photo)
                 this.form_profile.put('api/updatePP').then((res) => {
-                    console.log(res.data)
+                    // console.log(res.data)
+                    this.getMyInfo()
+                    $('#modalProfile').modal('hide');
+                    toast.fire({
+                        icon: 'success',
+                        title: res.data.message
+                    })
+                    this.form_profile.reset();
+                    
+
                 }).catch((err) => {
                     console.log(err)
                 })

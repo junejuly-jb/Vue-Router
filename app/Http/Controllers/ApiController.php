@@ -34,7 +34,7 @@ class ApiController extends Controller
         
 
             return response()->json([
-                'data' => $name
+                'message' => 'Profile picture updated successfully!'
             ]);
     }
     public function updateUser(Request $request){

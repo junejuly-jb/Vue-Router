@@ -2371,6 +2371,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2417,7 +2456,6 @@ __webpack_require__.r(__webpack_exports__);
           text: 'Something went wrong!',
           footer: '<a href>Why do I have this issue?</a>'
         });
-        this.form_profile.profile = ' ';
       }
     },
     updateUser: function updateUser() {
@@ -2439,9 +2477,20 @@ __webpack_require__.r(__webpack_exports__);
       $('#modalProfile').modal('show');
     },
     updatePP: function updatePP() {
+      var _this4 = this;
+
       // console.log(this.form_profile.photo)
       this.form_profile.put('api/updatePP').then(function (res) {
-        console.log(res.data);
+        // console.log(res.data)
+        _this4.getMyInfo();
+
+        $('#modalProfile').modal('hide');
+        toast.fire({
+          icon: 'success',
+          title: res.data.message
+        });
+
+        _this4.form_profile.reset();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2466,7 +2515,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card_profile{\n    /* border: 1px solid gray; */\n    border-radius: 5px;\n    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);\n    margin-bottom: 10px;\n}\n.account_header{\n    font-size: 18px;\n    font-weight: bold;\n    padding: 20px 0px 0px 10px;\n    color:  #1e6262 !important;\n}\n.acct_name{\n    font-size: 22px;\n    /* font-weight: bold; */\n    color: #1e6262;\n}\n.btnSubmit{\n    padding: 10px 25px;\n    background: #1e6262;\n    border: none;\n    border-radius: 5px;\n    color: white;\n    transition: 0.5s;\n    cursor: pointer;\n}\n.btnSubmit:hover{\n    background: #b4f1f1;\n    color: #1e6262;\n    transition: 0.5s;\n}\n.no-pp{\n    display: flex;\n    align-items: center;\n    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);\n    width: 140px;\n    height: 140px;\n    border-radius: 50%;\n    cursor: pointer;\n}\n.icon-tabler-user-plus{\n    margin: 0 auto;\n    display: block;\n}\n", ""]);
+exports.push([module.i, "\n.card_profile{\n    /* border: 1px solid gray; */\n    border-radius: 5px;\n    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);\n    margin-bottom: 10px;\n}\n.account_header{\n    font-size: 18px;\n    font-weight: bold;\n    padding: 20px 0px 0px 10px;\n    color:  #1e6262 !important;\n}\n.acct_name{\n    font-size: 22px;\n    /* font-weight: bold; */\n    color: #1e6262;\n}\n.btnSubmit{\n    padding: 10px 25px;\n    background: #1e6262;\n    border: none;\n    border-radius: 5px;\n    color: white;\n    transition: 0.5s;\n    cursor: pointer;\n}\n.btnSubmit:hover{\n    background: #b4f1f1;\n    color: #1e6262;\n    transition: 0.5s;\n}\n.no-pp{\n    display: flex;\n    align-items: center;\n    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);\n    width: 140px;\n    height: 140px;\n    border-radius: 50%;\n    cursor: pointer;\n}\n.icon-tabler-user-plus{\n    margin: 0 auto;\n    display: block;\n}\n.edit-toggler{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    align-content: center;\n    background: #1e6262;\n    width: 20%;\n    margin-left: auto;\n    margin-right: auto;\n    margin-top: 10px;\n    color: white;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 3px 0px;\n    transition: 0.5s;\n}\n.edit-toggler:hover{\n    background: #b4f1f1;\n    color: #1e6262;\n    transition: 0.5s;\n}\n.edit-toggler:hover > svg{\n    stroke:#1e6262;\n    transition: 0.5s;\n}\n.edit-toggler > svg{\n    transition: 0.5s;\n}\n", ""]);
 
 // exports
 
@@ -8549,6 +8598,64 @@ var render = function() {
                 })
               ])
             : _vm._e(),
+          _vm._v(" "),
+          _c("div", [
+            _vm.details.profile != null
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "text-center edit-toggler",
+                    on: { click: _vm.modalPop }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "icon icon-tabler icon-tabler-pencil",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          width: "22",
+                          height: "22",
+                          viewBox: "0 0 24 24",
+                          "stroke-width": "1.5",
+                          stroke: "#FFFFFF",
+                          fill: "none",
+                          "stroke-linecap": "round",
+                          "stroke-linejoin": "round"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            stroke: "none",
+                            d: "M0 0h24v24H0z",
+                            fill: "none"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("line", {
+                          attrs: {
+                            x1: "13.5",
+                            y1: "6.5",
+                            x2: "17.5",
+                            y2: "10.5"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("small", [_vm._v("Photo")])
+                  ]
+                )
+              : _vm._e()
+          ]),
           _vm._v(" "),
           _vm.details.profile == null
             ? _c(
