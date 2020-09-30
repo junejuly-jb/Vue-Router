@@ -24,7 +24,9 @@
         <span class="brand">DevKet</span>  
       </div>
       <div class="list-group list-group-flush">
-        <router-link to="/dashboard" class="list-group-item">Dashboard</router-link>
+        <router-link to="/dashboard" class="list-group-item">
+        Dashboard
+        </router-link>
         <router-link to="/profile" class="list-group-item">Profile</router-link>
         <router-link to="/items" class="list-group-item">Items</router-link>
       </div>

@@ -71,6 +71,9 @@
   color:#b4f1f1;
 }
 
+.text-pop{
+  font-family: 'Poppins', sans-serif;
+}
 
 @media (min-width: 768px) {
   #sidebar-wrapper {
