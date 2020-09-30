@@ -29,7 +29,10 @@ Vue.use(VueRouter)
 let routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default},
     { path: '/items', component: require('./components/Items.vue').default},
-    { path: '/profile', component: require('./components/Profile.vue').default}
+    { path: '/profile', component: require('./components/Profile.vue').default },
+    { path: '/viewDetails/:id', component: require('./components/Item_details.vue').default}
+    
+    // { path: '/viewDetails/{id}', component: require('./components/Item_details.vue').default}
 ]
   
 const router = new VueRouter({
