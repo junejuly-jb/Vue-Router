@@ -2323,6 +2323,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2388,7 +2419,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card_profile{\n    /* border: 1px solid gray; */\n    border-radius: 5px;\n    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);\n    margin-bottom: 10px;\n}\n.account_header{\n    font-size: 18px;\n    font-weight: bold;\n    padding: 20px 0px 0px 10px;\n    color:  #1e6262 !important;\n}\n.acct_name{\n    font-size: 18px;\n}\n.btnSubmit{\n    padding: 10px 25px;\n    background: #1e6262;\n    border: none;\n    border-radius: 5px;\n    color: white;\n    transition: 0.5s;\n    cursor: pointer;\n}\n.btnSubmit:hover{\n    background: #b4f1f1;\n    color: #1e6262;\n    transition: 0.5s;\n}\n", ""]);
+exports.push([module.i, "\n.card_profile{\n    /* border: 1px solid gray; */\n    border-radius: 5px;\n    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);\n    margin-bottom: 10px;\n}\n.account_header{\n    font-size: 18px;\n    font-weight: bold;\n    padding: 20px 0px 0px 10px;\n    color:  #1e6262 !important;\n}\n.acct_name{\n    font-size: 22px;\n    font-weight: bold;\n    color: #1e6262;\n}\n.btnSubmit{\n    padding: 10px 25px;\n    background: #1e6262;\n    border: none;\n    border-radius: 5px;\n    color: white;\n    transition: 0.5s;\n    cursor: pointer;\n}\n.btnSubmit:hover{\n    background: #b4f1f1;\n    color: #1e6262;\n    transition: 0.5s;\n}\n.no-pp{\n    display: flex;\n    align-items: center;\n    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);\n    width: 140px;\n    height: 140px;\n    border-radius: 50%;\n    cursor: pointer;\n}\n.icon-tabler-user-plus{\n    margin: 0 auto;\n    display: block;\n}\n", ""]);
 
 // exports
 
@@ -8408,9 +8439,32 @@ var render = function() {
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
-          _vm._m(0),
+          _vm.details.profile != null
+            ? _c("div", { staticClass: "text-center rounded-circle" }, [
+                _c("img", { attrs: { src: "", alt: "ProfilePic" } })
+              ])
+            : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "text-center pt-3 acct_name" }, [
+          _c("div", { attrs: { align: "center" } }, [
+            _c(
+              "label",
+              { staticStyle: { display: "block" }, attrs: { for: "avatar" } },
+              [
+                _c("img", {
+                  staticStyle: {
+                    "-moz-border-radius": "50px",
+                    "border-radius": "50px",
+                    height: "120px"
+                  },
+                  attrs: { src: "./images/def.png", id: "imgupload" }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "text-center pt-3 acct_name text-pop" }, [
             _vm._v(_vm._s(_vm.details.name))
           ]),
           _vm._v(" "),
@@ -8422,7 +8476,7 @@ var render = function() {
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
-          _c("div", { staticClass: "pb-5" }, [
+          _c("div", { staticClass: "pb-3" }, [
             _c("table", [
               _c("tr", [
                 _c("td", [
@@ -8585,7 +8639,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "pt-5 text-center" }, [
+            _c("div", { staticClass: "pt-4 text-center" }, [
               _vm.details.bio != null
                 ? _c("pre", [_vm._v('" ' + _vm._s(_vm.details.bio) + ' "')])
                 : _vm._e(),
@@ -8776,8 +8830,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center rounded-circle" }, [
-      _c("img", { attrs: { src: "", alt: "ProfilePic" } })
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("input", {
+        staticClass: "form-control",
+        staticStyle: { display: "none" },
+        attrs: { type: "file", name: "avatar", id: "avatar" }
+      })
     ])
   },
   function() {

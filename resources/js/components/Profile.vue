@@ -12,7 +12,9 @@
         color:  #1e6262 !important;
     }
     .acct_name{
-        font-size: 18px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #1e6262;
     }
     .btnSubmit{
         padding: 10px 25px;
@@ -28,6 +30,19 @@
         color: #1e6262;
         transition: 0.5s;
     }
+    .no-pp{
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .icon-tabler-user-plus{
+        margin: 0 auto;
+        display: block;
+    }
 </style>
 <template>
     <div class="container">
@@ -38,16 +53,32 @@
                 <div class="container card_profile">
                     <div class="account_header">My Account</div>
                     <hr>
-                    <div class="text-center rounded-circle">
+                    <div class="text-center rounded-circle" v-if="details.profile != null">
                         <img src="" alt="ProfilePic">
                     </div>
-                    <div class="text-center pt-3 acct_name">{{details.name}}</div>
+                    <div align="center">
+                        <label style="display: block" for="avatar">
+                            <img :src="'./images/def.png'" style="-moz-border-radius: 50px;border-radius: 50px;height: 120px" id="imgupload">
+                        </label>
+                        <div class="col-md-6">
+                            <input type="file" class="form-control" name="avatar" id="avatar" style="display: none">
+                        </div>
+                    </div>
+                    <!-- <div class="no-pp text-center m-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="92" height="92" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9E9E9E" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                            <path d="M16 11h6m-3 -3v6" />
+                        </svg>
+                    </div> -->
+                    <div class="text-center pt-3 acct_name text-pop">{{details.name}}</div>
                     <div class="text-center pb-2">
                         <small>Programmer</small>
                     </div>
                     <div class="account_header">Additional Information</div>
                     <hr>
-                    <div class="pb-5">
+                    <div class="pb-3">
                        <table>
                            <tr>
                                <td>
@@ -84,7 +115,7 @@
                                <td class="text-secondary" v-if="details.contact == null">{{form.contact}}</td>
                            </tr>
                        </table>
-                       <div class="pt-5 text-center">
+                       <div class="pt-4 text-center">
                            <pre v-if="details.bio != null">" {{details.bio }} "</pre>
                            <pre v-if="details.bio == null">" {{form.bio }} "</pre>
                        </div>
