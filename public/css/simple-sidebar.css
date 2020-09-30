@@ -64,6 +64,9 @@
   color:#b4f1f1 !important;
 
 }
+.router-link-exact-active svg{
+  stroke: #b4f1f1 !important;
+}
 .brand{
   font-size: 32px;
   font-family: poppins;
@@ -73,6 +76,11 @@
 
 .text-pop{
   font-family: 'Poppins', sans-serif;
+}
+
+.link{
+  display: flex;
+	align-items: center;
 }
 
 @media (min-width: 768px) {
