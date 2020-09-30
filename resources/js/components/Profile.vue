@@ -50,16 +50,6 @@
                     <div class="pb-5">
                        <table>
                            <tr>
-                               <td width="50">
-                                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9E9E9E" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <circle cx="12" cy="11" r="3" />
-                                    <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
-                                    </svg>
-                                </td>
-                               <td class="text-secondary">{{details.address}}</td>
-                           </tr>
-                           <tr>
                                <td>
                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9E9E9E" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -69,9 +59,34 @@
                                 </td>
                                <td class="text-secondary">{{details.email}}</td>
                            </tr>
+                           <tr>
+                               <td width="50">
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9E9E9E" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <circle cx="12" cy="11" r="3" />
+                                    <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+                                    </svg>
+                                </td>
+                               <td class="text-secondary" v-if="details.address != null">{{details.address}}</td>
+                               <td class="text-secondary" v-if="details.address == null ">{{form.address}}</td>
+                           </tr>
+                           
+                           <tr>
+                               <td>
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-mobile" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9E9E9E" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <rect x="7" y="4" width="10" height="16" rx="1" />
+                                        <line x1="11" y1="5" x2="13" y2="5" />
+                                        <line x1="12" y1="17" x2="12" y2="17.01" />
+                                    </svg>
+                                </td>
+                               <td class="text-secondary" v-if="details.contact != null">{{details.contact}}</td>
+                               <td class="text-secondary" v-if="details.contact == null">{{form.contact}}</td>
+                           </tr>
                        </table>
                        <div class="pt-5 text-center">
-                           <pre>" {{details.bio }} "</pre>
+                           <pre v-if="details.bio != null">" {{details.bio }} "</pre>
+                           <pre v-if="details.bio == null">" {{form.bio }} "</pre>
                        </div>
                     </div>
                 </div>

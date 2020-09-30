@@ -21,6 +21,7 @@ class ApiController extends Controller
             'bio' => 'required'
         ]);
 
+        $user->name = $request->name;
         $user->address = $request->address;
         $user->contact = $request->contact;
         $user->bio = $request->bio;

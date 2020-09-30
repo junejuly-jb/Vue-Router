@@ -75,7 +75,11 @@
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
-                <td><button class="btn" v-on:click="editItem(item)">Edit</button>&nbsp;<button class="btn" v-on:click="deleteItem(item.id)">Delete</button></td>
+                <td>
+                    <button class="btn" v-on:click="editItem(item)">Edit</button>&nbsp;
+                    <button class="btn btn-danger" v-on:click="deleteItem(item.id)">Delete</button>
+                    <router-link :to="`/viewDetails/${item.id}`" class="btn btn-secondary">View</router-link>
+                </td>
             </tr>
         </tbody>
         </table>

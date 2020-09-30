@@ -10,7 +10,7 @@
 
   <title>VueJS + Laravel</title>
 
-  <link href="./css/simple-sidebar.css" rel="stylesheet">
+  <link href="{{asset('./css/simple-sidebar.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 </head>
