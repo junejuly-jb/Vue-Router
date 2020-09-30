@@ -5,11 +5,37 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Validator;
+use Intervention\Image\Facades\Image as Image;
 
 class ApiController extends Controller
 {
     public function __construct(){
         $this->middleware('auth:api');
+    }
+
+    public function updatePP(Request $request){
+        $user = auth('api')->user();
+        $currentPhoto = $user->profile;
+
+        if($request->photo != $currentPhoto || $user->photo == null){
+            $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+            Image::make($request->photo)->save(public_path('uploads/').$name);
+            
+            $user->profile = $name;
+            $user->save();
+
+
+            // $userPhoto = public_path('uploads/').$currentPhoto;
+            $userPhoto = public_path('uploads/').$currentPhoto;
+            if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+            }
+        }
+        
+
+            return response()->json([
+                'data' => $name
+            ]);
     }
     public function updateUser(Request $request){
         $user = auth('api')->user();

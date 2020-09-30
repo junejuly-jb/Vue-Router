@@ -25,6 +25,8 @@ Route::delete('/deleteItem/{id}', 'App\Http\Controllers\ApiController@deleteItem
 Route::put('/updateItem/{id}', 'App\Http\Controllers\ApiController@updateItem');
 Route::get('/profile', 'App\Http\Controllers\ApiController@profile');
 Route::put('/updateUser', 'App\Http\Controllers\ApiController@updateUser');
+Route::put('/updatePP', 'App\Http\Controllers\ApiController@updatePP');
+
 
 
 

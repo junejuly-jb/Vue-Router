@@ -13,7 +13,7 @@
     }
     .acct_name{
         font-size: 22px;
-        font-weight: bold;
+        /* font-weight: bold; */
         color: #1e6262;
     }
     .btnSubmit{
@@ -45,7 +45,32 @@
     }
 </style>
 <template>
-    <div class="container">
+    <div class="container text-pop">
+
+        <div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Update Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="updatePP">
+                        <input type="file" class="form-control" @change="selectPhoto" required>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <small>USER INFORMATION</small>
         <hr>
         <div class="row">
@@ -53,25 +78,17 @@
                 <div class="container card_profile">
                     <div class="account_header">My Account</div>
                     <hr>
-                    <div class="text-center rounded-circle" v-if="details.profile != null">
-                        <img src="" alt="ProfilePic">
+                    <div class="text-center" v-if="details.profile != null">
+                        <img :src="'./uploads/'+ details.profile" alt="ProfilePic" class="rounded-circle" width="140">
                     </div>
-                    <div align="center">
-                        <label style="display: block" for="avatar">
-                            <img :src="'./images/def.png'" style="-moz-border-radius: 50px;border-radius: 50px;height: 120px" id="imgupload">
-                        </label>
-                        <div class="col-md-6">
-                            <input type="file" class="form-control" name="avatar" id="avatar" style="display: none">
-                        </div>
-                    </div>
-                    <!-- <div class="no-pp text-center m-auto">
+                    <div class="no-pp text-center m-auto" v-on:click="modalPop" v-if="details.profile == null">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-plus" width="92" height="92" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9E9E9E" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                             <circle cx="9" cy="7" r="4" />
                             <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                             <path d="M16 11h6m-3 -3v6" />
                         </svg>
-                    </div> -->
+                    </div>
                     <div class="text-center pt-3 acct_name text-pop">{{details.name}}</div>
                     <div class="text-center pb-2">
                         <small>Programmer</small>
@@ -88,7 +105,7 @@
                                         <polyline points="3 7 12 13 21 7" />
                                     </svg>
                                 </td>
-                               <td class="text-secondary">{{details.email}}</td>
+                               <td class="text-secondary"><small>{{details.email}}</small></td>
                            </tr>
                            <tr>
                                <td width="50">
@@ -98,7 +115,7 @@
                                     <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
                                     </svg>
                                 </td>
-                               <td class="text-secondary" v-if="details.address != null">{{details.address}}</td>
+                               <td class="text-secondary" v-if="details.address != null"><small>{{details.address}}</small></td>
                                <td class="text-secondary" v-if="details.address == null ">{{form.address}}</td>
                            </tr>
                            
@@ -111,7 +128,7 @@
                                         <line x1="12" y1="17" x2="12" y2="17.01" />
                                     </svg>
                                 </td>
-                               <td class="text-secondary" v-if="details.contact != null">{{details.contact}}</td>
+                               <td class="text-secondary" v-if="details.contact != null"><small>{{details.contact}}</small></td>
                                <td class="text-secondary" v-if="details.contact == null">{{form.contact}}</td>
                            </tr>
                        </table>
@@ -169,6 +186,9 @@
                     address: '',
                     contact: '',
                     bio: ''
+                }),
+                form_profile: new Form({
+                    photo: ''
                 })
             }
         },
@@ -176,13 +196,29 @@
             getMyInfo(){
                 axios.get('api/profile').then((res) => {
                     this.details = res.data.data
-                })
-            },
-            fillForm(){
-                axios.get('api/profile').then((res) => {
                     let creds = res.data.data
                     this.form.fill(creds)
                 })
+            },
+            selectPhoto(e){
+                let file = e.target.files[0]
+                let reader = new FileReader();
+                console.log(file['size'])
+                if(file['size'] < 2097152){
+                    reader.onload = (file) => {
+                        this.form_profile.photo = reader.result
+                    }
+                    reader.readAsDataURL(file)
+                }
+                else{
+                    swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>Why do I have this issue?</a>'
+                    })
+                    this.form_profile.profile = ' '
+                }
             },
             updateUser(){
                 console.log(this.form)
@@ -195,11 +231,21 @@
                 }).catch((err) => {
                     console.log(err)
                 })
+            },
+            modalPop(){
+                $('#modalProfile').modal('show')
+            },
+            updatePP(){
+                // console.log(this.form_profile.photo)
+                this.form_profile.put('api/updatePP').then((res) => {
+                    console.log(res.data)
+                }).catch((err) => {
+                    console.log(err)
+                })
             }
         },
         mounted() {
             this.getMyInfo()
-            this.fillForm()
         }
     }
 </script>
