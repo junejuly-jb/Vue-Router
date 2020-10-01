@@ -73,7 +73,7 @@
     }
 </style>
 <template>
-    <div class="container text-pop">
+    <div class="container text-pop page">
 
         <div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -107,8 +107,7 @@
                     <div class="account_header">My Account</div>
                     <hr>
                     <div class="text-center" v-if="details.profile != null">
-                        <img :src="'./uploads/'+ details.profile" alt="ProfilePic" class="rounded-circle" width="140">
-                        
+                        <img :src="'./uploads/'+ details.profile" alt="ProfilePic" class="rounded-circle" width="150">
                     </div>
                     <div>
                         <div v-on:click="modalPop" v-if="details.profile != null" class="text-center edit-toggler">

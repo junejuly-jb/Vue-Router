@@ -112,7 +112,9 @@
       </nav>
 
       <div class="container-fluid">
-        <router-view></router-view>
+        <!-- <transition enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutDown"> -->
+          <router-view></router-view>
+        <!-- </transition> -->
       </div>
     </div>
     <!-- /#page-content-wrapper -->
