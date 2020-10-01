@@ -4,8 +4,15 @@
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-simple-sidebar/blob/master/LICENSE)
  */
 
+ /* @import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
+
+ .page{
+   position: fixed;
+   width: inherit;
+ } */
  .wrapper {
     overflow-x: hidden;
+    width: inherit;
  }
 
 #sidebar-wrapper {

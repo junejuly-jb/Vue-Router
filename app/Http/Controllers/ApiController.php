@@ -12,14 +12,21 @@ class ApiController extends Controller
     public function __construct(){
         $this->middleware('auth:api');
     }
+    public function itemDetails($id){
+        $item = Item::find($id);
 
+        return response()->json([
+            'message' => 'success',
+            'data' => $item
+        ]);
+    }
     public function updatePP(Request $request){
         $user = auth('api')->user();
         $currentPhoto = $user->profile;
 
         if($request->photo != $currentPhoto || $user->photo == null){
             $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
-            Image::make($request->photo)->save(public_path('uploads/').$name);
+            Image::make($request->photo)->fit(900, 900)->save(public_path('uploads/').$name);
             
             $user->profile = $name;
             $user->save();

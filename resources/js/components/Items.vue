@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container page">
         <span id="sample"></span>
         <!-- edit modal -->
         <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
